@@ -129,39 +129,15 @@
   cursor: pointer;
 
   &--disabled {
-    opacity: 0.3;
     cursor: not-allowed;
+    pointer-events: none;
   }
 
-  // PrimeNG Checkbox overrides
+  // Remove default PrimeNG opacity on disabled
   ::ng-deep {
-    .p-checkbox {
-      width: 20px;
-      height: 20px;
-    }
-
-    .p-checkbox-box {
-      width: 16px;
-      height: 16px;
-      border-radius: 4px;
-      border: 1.5px solid var(--border-border_primary);
-      background: var(--background-background_inverse);
-      transition: none;
-
-      &.p-highlight {
-        background: var(--background-background_brand);
-        border-color: var(--border-border_brand);
-      }
-    }
-
-    .p-checkbox-icon {
-      color: var(--content-content_primary_inverse);
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-    .p-disabled {
-      opacity: 1;
+    .p-disabled,
+    .p-checkbox-disabled {
+      opacity: 1 !important;
     }
   }
 }

@@ -4,11 +4,13 @@
   --background-background_inverse: #ffffff;
   --background-background_brand: #3378fe;
   --background-background_secondary_bold: #e6e6e6;
+  --background-background_disabled: #f7f7f7;
 
   /* Border tokens */
   --border-border_primary: #eeeeee;
   --border-border_secondary: #d9d9d9;
   --border-border_brand: #3378fe;
+  --border-border_focus: #5a9eff;
 
   /* Content tokens */
   --content-content_primary: #262626;
@@ -58,29 +60,115 @@ body {
   user-select: none;
 }
 
-/* PrimeNG Aura theme override for checkbox */
+/* PrimeNG v19 checkbox override */
 .p-checkbox {
-  width: 20px;
-  height: 20px;
+  width: 20px !important;
+  height: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .p-checkbox .p-checkbox-box {
-  width: 16px;
-  height: 16px;
-  border-radius: 4px;
-  border: 1.5px solid var(--border-border_primary);
-  background: var(--background-background_inverse);
-  transition: none;
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  border-radius: 4px !important;
+  border: 1.5px solid var(--border-border_primary) !important;
+  background: var(--background-background_inverse) !important;
+  transition: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: none !important;
 }
 
-.p-checkbox.p-checkbox-checked .p-checkbox-box {
-  background: var(--background-background_brand);
-  border-color: var(--border-border_brand);
+/* Unchecked hover state */
+.p-checkbox:not(.p-disabled):not(.p-checkbox-disabled):hover .p-checkbox-box {
+  border-color: var(--border-border_focus) !important;
+  background: var(--background-background_inverse) !important;
 }
 
-.p-checkbox .p-checkbox-box .p-checkbox-icon {
-  color: var(--content-content_primary_inverse);
-  font-size: 12px;
+/* Checked state */
+.p-checkbox.p-checkbox-checked .p-checkbox-box,
+.p-checkbox-checked .p-checkbox-box {
+  background: var(--background-background_brand) !important;
+  border-color: var(--border-border_brand) !important;
+}
+
+/* Checked hover state */
+.p-checkbox.p-checkbox-checked:not(.p-disabled):not(.p-checkbox-disabled):hover .p-checkbox-box {
+  border-color: var(--border-border_focus) !important;
+  background: var(--background-background_brand) !important;
+}
+
+/* Checkmark icon */
+.p-checkbox .p-checkbox-box .p-checkbox-icon,
+.p-checkbox-box .p-checkbox-icon {
+  color: var(--content-content_primary_inverse) !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  width: 10px !important;
+  height: 10px !important;
+}
+
+/* Ensure SVG checkmark is visible and white */
+.p-checkbox .p-checkbox-box svg,
+.p-checkbox-box svg {
+  width: 10px !important;
+  height: 10px !important;
+  fill: var(--content-content_primary_inverse) !important;
+  stroke: var(--content-content_primary_inverse) !important;
+}
+
+/* Disabled unchecked state */
+.p-checkbox.p-disabled .p-checkbox-box,
+.p-checkbox.p-checkbox-disabled .p-checkbox-box,
+.p-checkbox[ng-reflect-disabled="true"] .p-checkbox-box {
+  background: var(--background-background_disabled) !important;
+  border-color: transparent !important;
+  cursor: not-allowed !important;
+}
+
+/* Disabled checked state */
+.p-checkbox.p-disabled.p-checkbox-checked .p-checkbox-box,
+.p-checkbox.p-checkbox-disabled.p-checkbox-checked .p-checkbox-box {
+  background: var(--background-background_disabled) !important;
+  border-color: transparent !important;
+}
+
+/* Disabled checkmark icon - use disabled color */
+.p-checkbox.p-disabled .p-checkbox-box .p-checkbox-icon,
+.p-checkbox.p-checkbox-disabled .p-checkbox-box .p-checkbox-icon,
+.p-checkbox.p-disabled .p-checkbox-box svg,
+.p-checkbox.p-checkbox-disabled .p-checkbox-box svg {
+  color: var(--content-content_disabled) !important;
+  fill: var(--content-content_disabled) !important;
+  stroke: var(--content-content_disabled) !important;
+}
+
+/* Remove default PrimeNG focus ring */
+.p-checkbox:focus,
+.p-checkbox:focus-visible,
+.p-checkbox .p-checkbox-box:focus,
+.p-checkbox .p-checkbox-box:focus-visible {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Override PrimeNG focus state */
+.p-checkbox.p-focus .p-checkbox-box,
+.p-checkbox:focus-within .p-checkbox-box {
+  border-color: var(--border-border_focus) !important;
+  box-shadow: none !important;
+}
+
+/* Remove any highlight/overlay effects */
+.p-checkbox .p-highlight,
+.p-checkbox-box.p-highlight {
+  background: var(--background-background_brand) !important;
+  border-color: var(--border-border_brand) !important;
 }
 
 /* Input styling */
