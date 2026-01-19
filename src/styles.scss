@@ -1,0 +1,106 @@
+/* Design Tokens from Figma */
+:root {
+  /* Background tokens */
+  --background-background_inverse: #ffffff;
+  --background-background_brand: #3378fe;
+  --background-background_secondary_bold: #e6e6e6;
+
+  /* Border tokens */
+  --border-border_primary: #eeeeee;
+  --border-border_secondary: #d9d9d9;
+  --border-border_brand: #3378fe;
+
+  /* Content tokens */
+  --content-content_primary: #262626;
+  --content-content_secondary: #737373;
+  --content-content_tertiary: #aeaeae;
+  --content-content_disabled: #aeaeae;
+  --content-content_primary_inverse: #ffffff;
+  --content-content_secondary_inverse: #fafafa;
+
+  /* Elevation */
+  --elevation-md: 
+    0px 1px 2px 0px rgba(120, 120, 120, 0.1),
+    0px 4px 4px 0px rgba(120, 120, 120, 0.09),
+    0px 9px 6px 0px rgba(120, 120, 120, 0.05),
+    0px 17px 7px 0px rgba(120, 120, 120, 0.01),
+    0px 26px 7px 0px rgba(120, 120, 120, 0);
+
+  /* Font family */
+  --font-family: 'Open Sans', sans-serif;
+}
+
+/* Global reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Material Symbols configuration */
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 20;
+  user-select: none;
+}
+
+/* PrimeNG Aura theme override for checkbox */
+.p-checkbox {
+  width: 20px;
+  height: 20px;
+}
+
+.p-checkbox .p-checkbox-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1.5px solid var(--border-border_primary);
+  background: var(--background-background_inverse);
+  transition: none;
+}
+
+.p-checkbox.p-checkbox-checked .p-checkbox-box {
+  background: var(--background-background_brand);
+  border-color: var(--border-border_brand);
+}
+
+.p-checkbox .p-checkbox-box .p-checkbox-icon {
+  color: var(--content-content_primary_inverse);
+  font-size: 12px;
+}
+
+/* Input styling */
+input::placeholder {
+  color: var(--content-content_secondary);
+}
+
+input:focus {
+  outline: none;
+}
+
+/* Button reset */
+button {
+  font-family: var(--font-family);
+  border: none;
+  cursor: pointer;
+  background: none;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--background-background_brand);
+  outline-offset: 2px;
+}

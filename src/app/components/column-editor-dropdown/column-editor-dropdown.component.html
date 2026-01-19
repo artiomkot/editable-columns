@@ -1,0 +1,149 @@
+<div class="column-editor-dropdown">
+  <!-- Search Section -->
+  <div class="search-section">
+    <div class="search-field">
+      <span class="material-symbols-outlined search-icon">search</span>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search columns…"
+        [value]="searchQuery()"
+        (input)="onSearchInput($event)"
+        autocomplete="off"
+        spellcheck="false"
+      />
+    </div>
+  </div>
+
+  <!-- Results Container -->
+  <div class="results-container">
+    <div class="list-container">
+      <!-- Active Columns Section -->
+      @if (activeColumns().length > 0) {
+        <div class="section-label">Active Columns</div>
+        
+        <!-- Mandatory columns (not draggable) -->
+        @for (column of mandatoryActiveColumns; track column.id) {
+          <div class="list-item list-item--mandatory">
+            <div class="checkbox-wrapper checkbox-wrapper--disabled">
+              <p-checkbox
+                [ngModel]="column.visible"
+                [binary]="true"
+                [disabled]="true"
+                inputId="checkbox-{{ column.id }}"
+              />
+            </div>
+            <label 
+              class="list-item-label list-item-label--disabled"
+              for="checkbox-{{ column.id }}"
+            >
+              {{ column.name }}
+            </label>
+          </div>
+        }
+
+        <!-- Non-mandatory columns (draggable) -->
+        <div
+          cdkDropList
+          [cdkDropListData]="draggableActiveColumns"
+          (cdkDropListDropped)="onDrop($event, true)"
+          class="drag-list"
+        >
+          @for (column of draggableActiveColumns; track column.id) {
+            <div 
+              class="list-item list-item--draggable"
+              cdkDrag
+              [cdkDragData]="column"
+            >
+              <div class="checkbox-wrapper" (click)="onColumnToggle(column)">
+                <p-checkbox
+                  [ngModel]="column.visible"
+                  [binary]="true"
+                  inputId="checkbox-{{ column.id }}"
+                />
+              </div>
+              <label 
+                class="list-item-label"
+                for="checkbox-{{ column.id }}"
+                (click)="onColumnToggle(column)"
+              >
+                {{ column.name }}
+              </label>
+              <span class="material-symbols-outlined drag-handle" cdkDragHandle>drag_indicator</span>
+              
+              <!-- Drag placeholder -->
+              <div class="drag-placeholder" *cdkDragPlaceholder></div>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Inactive Columns Section -->
+      @if (inactiveColumns().length > 0) {
+        <div class="section-label section-label--with-border">Inactive Columns</div>
+        
+        <div
+          cdkDropList
+          [cdkDropListData]="inactiveColumns()"
+          (cdkDropListDropped)="onDrop($event, false)"
+          class="drag-list"
+        >
+          @for (column of inactiveColumns(); track column.id) {
+            <div 
+              class="list-item list-item--draggable"
+              cdkDrag
+              [cdkDragData]="column"
+            >
+              <div class="checkbox-wrapper" (click)="onColumnToggle(column)">
+                <p-checkbox
+                  [ngModel]="column.visible"
+                  [binary]="true"
+                  inputId="checkbox-{{ column.id }}"
+                />
+              </div>
+              <label 
+                class="list-item-label"
+                for="checkbox-{{ column.id }}"
+                (click)="onColumnToggle(column)"
+              >
+                {{ column.name }}
+              </label>
+              <span class="material-symbols-outlined drag-handle" cdkDragHandle>drag_indicator</span>
+              
+              <!-- Drag placeholder -->
+              <div class="drag-placeholder" *cdkDragPlaceholder></div>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Empty state -->
+      @if (activeColumns().length === 0 && inactiveColumns().length === 0) {
+        <div class="empty-state">
+          <span class="material-symbols-outlined empty-icon">search_off</span>
+          <p class="empty-text">No columns match your search</p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-actions">
+      <button 
+        type="button" 
+        class="btn btn--secondary"
+        (click)="onReset()"
+      >
+        Reset
+      </button>
+      <button 
+        type="button" 
+        class="btn btn--primary"
+        (click)="onApply()"
+      >
+        Apply
+      </button>
+    </div>
+  </div>
+</div>
