@@ -30,15 +30,9 @@
                 [ngModel]="column.visible"
                 [binary]="true"
                 [disabled]="true"
-                inputId="checkbox-{{ column.id }}"
               />
             </div>
-            <label 
-              class="list-item-label list-item-label--disabled"
-              for="checkbox-{{ column.id }}"
-            >
-              {{ column.name }}
-            </label>
+            <span class="list-item-label list-item-label--disabled">{{ column.name }}</span>
           </div>
         }
 
@@ -54,22 +48,20 @@
               class="list-item list-item--draggable"
               cdkDrag
               [cdkDragData]="column"
+              (click)="onColumnToggle(column)"
             >
-              <div class="checkbox-wrapper" (click)="onColumnToggle(column)">
+              <div class="checkbox-wrapper">
                 <p-checkbox
                   [ngModel]="column.visible"
                   [binary]="true"
-                  inputId="checkbox-{{ column.id }}"
                 />
               </div>
-              <label 
-                class="list-item-label"
-                for="checkbox-{{ column.id }}"
-                (click)="onColumnToggle(column)"
-              >
-                {{ column.name }}
-              </label>
-              <span class="material-symbols-outlined drag-handle" cdkDragHandle>drag_indicator</span>
+              <span class="list-item-label">{{ column.name }}</span>
+              <span 
+                class="material-symbols-outlined drag-handle" 
+                cdkDragHandle
+                (click)="$event.stopPropagation()"
+              >drag_indicator</span>
               
               <!-- Drag placeholder -->
               <div class="drag-placeholder" *cdkDragPlaceholder></div>
@@ -82,39 +74,20 @@
       @if (inactiveColumns().length > 0) {
         <div class="section-label section-label--with-border">Inactive Columns</div>
         
-        <div
-          cdkDropList
-          [cdkDropListData]="inactiveColumns()"
-          (cdkDropListDropped)="onDrop($event, false)"
-          class="drag-list"
-        >
-          @for (column of inactiveColumns(); track column.id) {
-            <div 
-              class="list-item list-item--draggable"
-              cdkDrag
-              [cdkDragData]="column"
-            >
-              <div class="checkbox-wrapper" (click)="onColumnToggle(column)">
-                <p-checkbox
-                  [ngModel]="column.visible"
-                  [binary]="true"
-                  inputId="checkbox-{{ column.id }}"
-                />
-              </div>
-              <label 
-                class="list-item-label"
-                for="checkbox-{{ column.id }}"
-                (click)="onColumnToggle(column)"
-              >
-                {{ column.name }}
-              </label>
-              <span class="material-symbols-outlined drag-handle" cdkDragHandle>drag_indicator</span>
-              
-              <!-- Drag placeholder -->
-              <div class="drag-placeholder" *cdkDragPlaceholder></div>
+        @for (column of inactiveColumns(); track column.id) {
+          <div 
+            class="list-item list-item--clickable"
+            (click)="onColumnToggle(column)"
+          >
+            <div class="checkbox-wrapper">
+              <p-checkbox
+                [ngModel]="column.visible"
+                [binary]="true"
+              />
             </div>
-          }
-        </div>
+            <span class="list-item-label">{{ column.name }}</span>
+          </div>
+        }
       }
 
       <!-- Empty state -->
